@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(aacpp VERSION 0.1)
+project(h264decpp VERSION 0.1)
 
 option(H264DECPP_BUILD_DEMO "Build the h264decpp-demo binary" ON)
 
