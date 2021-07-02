@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 project(aacpp VERSION 0.1)
 
+option(H264DECPP_BUILD_DEMO "Build the h264decpp-demo binary" ON)
+
 include(cmake/build_type.cmake)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -45,21 +47,23 @@ add_dependencies(h264decpp
     upstream-ffmpeg-h264
 )
 
-add_executable(h264decpp-demo
-    demo/main.cpp
-    demo/readers/file.cpp
-    demo/readers/h264.cpp
-)
+if(H264DECPP_BUILD_DEMO)
+    add_executable(h264decpp-demo
+        demo/main.cpp
+        demo/readers/file.cpp
+        demo/readers/h264.cpp
+    )
 
-target_include_directories(h264decpp-demo PUBLIC
-    include/
-    demo/
-)
+    target_include_directories(h264decpp-demo PUBLIC
+        include/
+        demo/
+    )
 
-target_link_libraries(h264decpp-demo PUBLIC
-    h264decpp
-)
+    target_link_libraries(h264decpp-demo PUBLIC
+        h264decpp
+    )
 
-add_dependencies(h264decpp
-    h264decpp
-)
+    add_dependencies(h264decpp
+        h264decpp
+    )
+endif()
