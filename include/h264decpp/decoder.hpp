@@ -16,8 +16,8 @@ class decoder {
         size_t width, height;
     };
 
-    std::optional<frame const> decode(std::span<uint8_t> input);
-    std::optional<frame const> flush();
+    std::optional<frame> decode(std::span<uint8_t> input);
+    std::optional<frame> flush();
 
   private:
     struct impl;

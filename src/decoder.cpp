@@ -84,7 +84,7 @@ struct decoder::impl {
         }
     }
 
-    std::optional<frame const> decode(std::span<uint8_t> input) {
+    std::optional<frame> decode(std::span<uint8_t> input) {
         m_buffer.insert(m_buffer.end(), input.begin(), input.end());
 
         uint8_t* data = NULL;
@@ -111,7 +111,7 @@ struct decoder::impl {
         return std::nullopt;
     }
 
-    std::optional<frame const> flush() {
+    std::optional<frame> flush() {
         uint8_t* data = NULL;
         int size = 0;
 
@@ -138,7 +138,7 @@ struct decoder::impl {
     std::vector<uint8_t> m_buffer;
     std::vector<uint8_t> m_frame_buffer;
 
-    std::optional<frame const> decode_frame() {
+    std::optional<frame> decode_frame() {
         int got_frame = 0;
         if (avcodec_decode_video2(m_codec_ctx, m_frame, &got_frame, &m_packet) < 0) {
             throw std::runtime_error("Error while decoding frame");
@@ -183,11 +183,11 @@ decoder::decoder() : m_impl(std::make_unique<impl>()) {
 
 decoder::~decoder() {}
 
-std::optional<decoder::frame const> decoder::decode(std::span<uint8_t> input) {
+std::optional<decoder::frame> decoder::decode(std::span<uint8_t> input) {
     return m_impl->decode(input);
 }
 
-std::optional<decoder::frame const> decoder::flush() {
+std::optional<decoder::frame> decoder::flush() {
     return m_impl->flush();
 }
 
