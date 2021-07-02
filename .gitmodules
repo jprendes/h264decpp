@@ -1,0 +1,3 @@
+[submodule "upstream/ffmpeg-h264-dec"]
+	path = upstream/ffmpeg-h264-dec
+	url = https://github.com/shengbinmeng/ffmpeg-h264-dec.git
