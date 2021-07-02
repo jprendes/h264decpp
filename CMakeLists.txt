@@ -26,12 +26,15 @@ target_include_directories(upstream-ffmpeg-h264 PUBLIC
     upstream/ffmpeg-h264-dec/ffmpeg-src/
 )
 
-add_executable(h264decpp
-    src/main.cpp
+add_library(h264decpp
+    src/decoder.cpp
 )
+
+target_compile_options(h264decpp PRIVATE "-w")
 
 target_include_directories(h264decpp PUBLIC
     upstream/ffmpeg-h264-dec/ffmpeg-src/
+    include/
 )
 
 target_link_libraries(h264decpp PUBLIC
@@ -40,4 +43,23 @@ target_link_libraries(h264decpp PUBLIC
 
 add_dependencies(h264decpp
     upstream-ffmpeg-h264
+)
+
+add_executable(h264decpp-demo
+    demo/main.cpp
+    demo/readers/file.cpp
+    demo/readers/h264.cpp
+)
+
+target_include_directories(h264decpp-demo PUBLIC
+    include/
+    demo/
+)
+
+target_link_libraries(h264decpp-demo PUBLIC
+    h264decpp
+)
+
+add_dependencies(h264decpp
+    h264decpp
 )
