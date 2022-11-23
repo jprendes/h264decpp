@@ -22,7 +22,7 @@ add_library(upstream-ffmpeg-h264
     ${upstream-ffmpeg-src}
 )
 
-target_compile_options(upstream-ffmpeg-h264 PRIVATE "-w")
+target_compile_options(upstream-ffmpeg-h264 PRIVATE "-w" "-Wno-implicit-function-declaration")
 
 target_include_directories(upstream-ffmpeg-h264 PUBLIC
     upstream/ffmpeg-h264-dec/ffmpeg-src/
